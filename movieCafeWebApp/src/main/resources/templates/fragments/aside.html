@@ -11,8 +11,9 @@
 				<img src="/images/login.png" alt="login_icon" class="login_icon" />
 				<span class="login_title">로그인</span>
 				<div class="login_divide"></div>
-				<form action="${pageContext.request.contextPath}/login.do"
-					method="POST">
+				<div th:if="${session.UserInfoVo == null}" id="thId">
+				<form action="/requestlogin"
+					method="POST" >
 					<div class="login_input">
 						<span>아이디</span> <input class="login_inputBox" type="text"
 							name="userId" id="userId" />
@@ -27,6 +28,13 @@
 						<button type="button" class="login_btn">ID / PWD 찾기</button>
 					</div>
 				</form>
+				</div>
+				
+				
+							<img src="upload/user/profile.png" alt="profile"
+								class="login_profile" />
+						<img src="upload/user/userInfo.Sys" alt="profile"
+							class="login_profile" />
 			</div>
 		</div>
 	</div>

@@ -4,7 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+
+		<typeAlias alias="UserInfoVo" type="com.example.member..UserInfoVo"/>
 		<typeAlias type="com.example.movie.vo.MovieInfoVO" alias="movieVO"/>
 		<typeAlias type="com.example.board.vo.BoardVO" alias="boardVO"/>
+
 	</typeAliases>
 </configuration>

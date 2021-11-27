@@ -3,5 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
+	<!-- 로그인이 가능하면 1, 아이디가 DB에 없으면 0 -->
+	<select id="checkIsUser" parameterType="hashMap" resultType="int" >
+		SELECT COUNT( * ) 
+		FROM user_info
+		WHERE userId = #{userId} AND userPwd = #{userPwd}
+	</select>
+	
+	<!-- 로그인을 위해 ID를 가지고 회원 정보를 가져온다. -->
+	<!-- 로그인 상태에서 하는 작업 중 추가로 필요한 데이터가 있을 경우 추가로 넣을 것. -->
+	<resultMap type="UserInfoVo" id="getUserInfo">
+		<id property="userId" javaType="string" jdbcType="VARCHAR"  column="userId"></id>
+		<id property="userNick" javaType="string" jdbcType="VARCHAR" column="userNick"></id>
+		<id property="rankType" javaType="string" jdbcType="VARCHAR" column="rankType"></id>
+		<id property="photoSys" javaType="string" jdbcType="VARCHAR" column="photoSys"></id>
+		<id property="joinDate" javaType="string" jdbcType="DATE" column="joinDate"></id>
+	</resultMap>
+	
+	<select id="loginUser" parameterType="string" resultType="UserInfoVo" resultMap="getUserInfo">
+		SELECT user_info.userId, user_info.userNick, rank.rankType, 
+				user_info.photoSys, user_info.joinDate
+		FROM user_info INNER JOIN rank
+		ON (user_info.userId = rank.userId) AND user_info.userId = #{userId}
+	</select>
 	
 </mapper>
